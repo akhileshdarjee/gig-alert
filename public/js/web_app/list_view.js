@@ -175,10 +175,7 @@ function get_checked_rows() {
 	var checked_rows = [];
 	$.each($("table.list-view > tbody > tr").find("input[type='checkbox']"), function(index, element) {
 		if ($(element).is(":checked")) {
-			var link_field = $(element).data("link-field");
-			if (checked_rows.contains(link_field)) {
-				checked_rows.push($(this).closest('tr.clickable_row').data('href'));
-			}
+			checked_rows.push($(this).closest('tr.clickable_row').data('href'));
 		}
 	});
 
