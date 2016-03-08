@@ -30,7 +30,7 @@ class FormActions extends Controller
 		}
 		else {
 			// Returns response with view
-			return $this->make_action_based_on_response($show_response);
+			return $this->make_action($show_response);
 		}
 	}
 
@@ -62,7 +62,7 @@ class FormActions extends Controller
 		}
 		else {
 			// Returns response with view
-			return $this->make_action_based_on_response($save_response, 'form_view');
+			return $this->make_action($save_response, 'form_view');
 		}
 	}
 
@@ -94,7 +94,7 @@ class FormActions extends Controller
 		}
 		else {
 			// Returns response with view
-			return $this->make_action_based_on_response($delete_response, 'list_view');
+			return $this->make_action($delete_response, 'list_view');
 		}
 	}
 
@@ -107,7 +107,7 @@ class FormActions extends Controller
 
 
 	// redirect to page based on api response
-	public function make_action_based_on_response($response, $view_type = null) {
+	public function make_action($response, $view_type = null) {
 		$response = json_decode($response->getContent());
 		$module = snake_case($this->form_config['module']);
 		$data = json_decode(json_encode($response->data), true);

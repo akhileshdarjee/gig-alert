@@ -6,7 +6,6 @@ use DB;
 use Auth;
 use File;
 use Session;
-use Response;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -749,6 +748,6 @@ class FormController extends Controller
 			'data' => $data ? $data : []
 		];
 
-		return Response::json($response_data, $status_code);
+		return response()->json($response_data, $status_code);
 	}
 }
