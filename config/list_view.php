@@ -17,4 +17,34 @@ return [
 		'cols' => ['login_id', 'full_name', 'role', 'status']
 	],
 
+	'tabArtist' => [
+		'link_field' => 'id',
+		'search_via' => 'name',
+		'cols' => ['name', 'genre', 'status']
+	],
+
+	'tabVenue' => [
+		'link_field' => 'id',
+		'search_via' => 'login_id',
+		'cols' => ['name', 'city', 'status']
+	],
+
+	'tabGenre' => [
+		'link_field' => 'id',
+		'search_via' => 'name',
+		'cols' => ['name', 'status']
+	],
+
+	'tabOrganizer' => [
+		'link_field' => 'id',
+		'search_via' => 'name',
+		'cols' => ['name', 'status']
+	],
+
+	'tabGig' => [
+		'link_field' => 'id',
+		'search_via' => 'name',
+		'cols' => ['name', 'from_date', 'to_date', 'price', 'status']
+	],
+
 ];

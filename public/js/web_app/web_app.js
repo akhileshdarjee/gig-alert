@@ -128,12 +128,21 @@ $( document ).ready(function() {
 	});
 	
 
-	// enable datepicker
+	// enable datetime picker
 	$(function () {
-		$("input.datepicker").each(function() {
-			$(this).datepicker({
-				'format': 'dd-mm-yyyy'
-			});
+		$(".datetimepicker").datetimepicker({
+			format: 'DD-MM-YYYY hh:mm A',
+			icons: {
+				time: "fa fa-clock-o",
+				date: "fa fa-calendar",
+				up: "fa fa-chevron-up",
+				down: "fa fa-chevron-down",
+				previous: "fa fa-chevron-left",
+				next: "fa fa-chevron-right",
+				today: "fa fa-crosshairs",
+				clear: "fa fa-trash-o",
+				close: "fa fa-times"
+			}
 		});
 	});
 

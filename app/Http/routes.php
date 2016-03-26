@@ -24,8 +24,17 @@
 Route::group(['middleware' => ['web']], function () {
 	// Website routes...
 	Route::get('/', ['as' => 'show.website', 'uses' => 'WebsiteController@showIndex']);
+	Route::get('/artist/{slug}', ['as' => 'show.artist.details', 'uses' => 'WebsiteController@showArtistDetails']);
+	Route::get('/gigs', ['as' => 'show.gigs', 'uses' => 'WebsiteController@showGigs']);
 
 	// API calls
+
+	// Customer routes...
+	Route::group(['middleware' => 'Subscription\Http\Middleware\CustomerMiddleware'], function () {
+		Route::get('/followings', 'WebsiteController@showFollowings');
+		Route::post('/follow/{category}/{id}', 'WebsiteController@follow');
+		Route::post('/unfollow/{category}/{id}', 'WebsiteController@unfollow');
+	});
 
 	// Authentication routes...
 	Route::get('/login', ['as' => 'show.login', 'uses' => 'Auth\AuthController@getLogin']);

@@ -24,6 +24,7 @@ elixir(function(mix) {
 		'../../../public/css/font-awesome.min.css',
 		'../../../public/css/plugin.css',
 		'../../../public/css/style.css',
+		'../../../public/css/bootstrap-datetimepicker.css',
 		'../../../public/css/web_app/web_app.css'
 	]);
 });
@@ -34,14 +35,31 @@ elixir(function(mix) {
 		'../../../public/js/bootstrap.js',
 		'../../../public/js/file-input/bootstrap.file-input.js',
 		'../../../public/js/bootstrap-typeahead.js',
-		'../../../public/js/bootstrap-datepicker.js',
 		'../../../public/js/moment.js',
+		'../../../public/js/bootstrap-datetimepicker.min.js',
 		'../../../public/js/app.js',
 		'../../../public/js/app.plugin.js',
 		'../../../public/js/web_app/web_app.js'
 	]);
 });
 
+/* Website */
+
 elixir(function(mix) {
-	mix.version(['css/all.css', 'js/all.js']);
+	mix.styles([
+		'../../../public/css/website/bootstrap.min.css',
+		'../../../public/css/font-awesome.min.css',
+		'../../../public/css/website/main.css',
+	], 'public/css/website/all.css');
+});
+
+elixir(function(mix) {
+	mix.scripts([
+		'../../../public/js/website/vendor/bootstrap.min.js',
+		'../../../public/js/website/main.js',
+	], 'public/js/website/all.js');
+});
+
+elixir(function(mix) {
+	mix.version(['css/all.css', 'js/all.js', 'css/website/all.css', 'js/website/all.js']);
 });

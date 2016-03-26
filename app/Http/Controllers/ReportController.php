@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Gig\Http\Controllers;
 
 use DB;
 use Session;
@@ -8,13 +8,13 @@ use App;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use Gig\Http\Requests;
+use Gig\Http\Controllers\Controller;
 
 class ReportController extends Controller
 {
 
-	public static $controllers_path = "App\\Http\\Controllers";
+	public static $controllers_path = "Gig\\Http\\Controllers";
 
 	// Show list of all reports for the app
 	public static function show() {

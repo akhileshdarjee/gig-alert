@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Web App | 404 Error | Page Not Found</title>
+		<title>Gig Alert | 404 Error | Page Not Found</title>
 		@include('templates.headers')
 	</head>
 	<body>

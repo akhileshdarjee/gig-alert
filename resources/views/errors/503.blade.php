@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Web App | 503 Error | Page Not Found</title>
+		<title>Gig Alert | 503 Error | Page Not Found</title>
 		@include('website.templates.headers')
 	</head>
 	<body>

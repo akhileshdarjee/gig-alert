@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Reports;
+namespace Gig\Http\Controllers\Reports;
 
 use DB;
 use Session;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use Gig\Http\Requests;
+use Gig\Http\Controllers\Controller;
 
 class UserReport extends Controller
 {

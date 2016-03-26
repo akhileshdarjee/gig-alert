@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Password Reset - Web App</title>
+		<title>Password Reset - Gig Alert</title>
 		@include('templates.headers')
 	</head>
 	<body bgcolor="white">
 		<header id="header" class="navbar bg bg-black">
-			<a class="navbar-brand" href="/">Web App</a>
+			<a class="navbar-brand" href="/">Gig Alert</a>
 		</header>
 		<section id="content">
 			<div class="main padder">

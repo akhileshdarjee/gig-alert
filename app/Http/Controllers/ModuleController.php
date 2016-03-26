@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Gig\Http\Controllers;
 
 use Session;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use Gig\Http\Requests;
+use Gig\Http\Controllers\Controller;
 
 class ModuleController extends Controller
 {

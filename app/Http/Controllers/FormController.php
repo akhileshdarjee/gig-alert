@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Gig\Http\Controllers;
 
 use DB;
 use Auth;
@@ -8,8 +8,8 @@ use File;
 use Session;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use Gig\Http\Requests;
+use Gig\Http\Controllers\Controller;
 
 class FormController extends Controller
 {
@@ -71,15 +71,90 @@ class FormController extends Controller
 				}
 			}
 
-			$data[$form_config['table_name']] = $data[$form_config['table_name']]->first();
+			if (isset($form_config['parent_foreign_map'])) {
+				foreach ($form_config['parent_foreign_map'] as $foreign_table => $foreign_details) {
+					$foreign_key = $foreign_details['foreign_key'];
+					$foreign_field = $foreign_details['fetch_field'];
+
+					if (end($form_config['parent_foreign_map']) !== $foreign_details) {
+						$fetch_field .= $foreign_field . ',';
+					}
+					else {
+						$fetch_field .= $foreign_field;
+					}
+
+					$data[$form_config['table_name']] = $data[$form_config['table_name']]
+						->leftJoin($foreign_table, $data[$form_config['table_name']].'.'.$foreign_key, '=', $foreign_table.'.id');
+				}
+
+				$data[$form_config['table_name']] = $data[$form_config['table_name']]
+					->select(DB::raw($form_config['table_name'] . '.*, ' . $fetch_field))
+					->where($form_config['child_foreign_key'], $form_config['link_field_value'])
+					->first();
+			}
+			else {
+				$data[$form_config['table_name']] = $data[$form_config['table_name']]->first();
+			}
 
 			if ($data && $data[$form_config['table_name']]) {
 				// if child tables set and found in db then attach it with data
-				if(isset($form_config['child_tables']) && isset($form_config['child_foreign_key'])) {
-					foreach ($form_config['child_tables'] as $child_table) {
-						$data[$child_table] = DB::table($child_table)
-							->where($form_config['child_foreign_key'], $form_config['link_field_value'])
-							->get();
+				if (isset($form_config['child_tables']) && isset($form_config['child_foreign_key'])) {
+					if (isset($form_config['child_foreign_map']) && $form_config['child_foreign_map']) {
+						foreach ($form_config['child_tables'] as $child_table) {
+							$child_foreign_map = $form_config['child_foreign_map'];
+
+							if (in_array($child_table, array_keys($child_foreign_map))) {
+								$data_query = DB::table($child_table);
+
+								$foreign_table = array_keys($child_foreign_map[$child_table]);
+
+								if (count($foreign_table) > 1) {
+									$fetch_field = '';
+									foreach (array_values($foreign_table) as $index => $table_name) {
+										$foreign_key = $child_foreign_map[$child_table][$table_name]['foreign_key'];
+										$foreign_field = $child_foreign_map[$child_table][$table_name]['fetch_field'];
+
+										if ($index === count($foreign_table) - 1) {
+											$fetch_field .= $foreign_field;
+										}
+										else {
+											$fetch_field .= $foreign_field . ',';
+										}
+
+										$data_query = $data_query
+											->leftJoin($table_name, $child_table.'.'.$foreign_key, '=', $table_name.'.id');
+									}
+								}
+								else {
+									$foreign_table = $foreign_table[0];
+									$foreign_key = $child_foreign_map[$child_table][$foreign_table]['foreign_key'];
+									$fetch_field = $child_foreign_map[$child_table][$foreign_table]['fetch_field'];
+
+									$data_query = $data_query
+										->leftJoin($foreign_table, $child_table.'.'.$foreign_key, '=', $foreign_table.'.id');
+								}
+
+								$data[$child_table] = $data_query
+									->select(DB::raw($child_table . '.*, ' . $fetch_field))
+									->where($form_config['child_foreign_key'], $form_config['link_field_value'])
+									->orderBy($child_table . '.id', 'asc')
+									->get();
+							}
+							else {
+								$data[$child_table] = DB::table($child_table)
+									->where($form_config['child_foreign_key'], $form_config['link_field_value'])
+									->orderBy($child_table . '.id', 'asc')
+									->get();
+							}
+						}
+					}
+					else {
+						foreach ($form_config['child_tables'] as $child_table) {
+							$data[$child_table] = DB::table($child_table)
+								->where($form_config['child_foreign_key'], $form_config['link_field_value'])
+								->orderBy($child_table . '.id', 'asc')
+								->get();
+						}
 					}
 				}
 			}
@@ -519,12 +594,12 @@ class FormController extends Controller
 				if (isset($form_config['child_tables']) && in_array($column, $form_config['child_tables'])) {
 					$data[$column] = $value;
 				}
-				else {
+				elseif (isset($table_schema[$column])) {
 					$data[$form_config['table_name']][$column] = $value;
 				}
 			}
 			else {
-				if ($form_config['link_field_value']) {
+				if ($form_config['link_field_value'] && isset($table_schema[$column])) {
 					$data[$form_config['table_name']][$column] = null;
 				}
 			}

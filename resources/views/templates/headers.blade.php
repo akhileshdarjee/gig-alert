@@ -1,5 +1,5 @@
 <meta charset="utf-8" />
-<meta name="description" content="Web App" />
+<meta name="description" content="Gig Alert" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <link type="text/css" rel="stylesheet" href="{{ elixir('css/all.css') }}">

@@ -1,7 +1,7 @@
 <form method="POST" action="/app/settings" name="settings" id="settings" class="form-horizontal" enctype="multipart/form-data">
 	{!! csrf_field() !!}
 	<div class="panel-body">
-		<div class="row">
+		<!-- <div class="row">
 			<div class="col-md-12" id="social-settings">
 				<h4>
 					<strong><i class="fa fa-share-alt"></i> Social Login</strong>
@@ -49,7 +49,7 @@
 				</div>
 				<div class="line line-dashed m-t-large"></div>
 			</div>
-		</div>
+		</div> -->
 		<div class="row">
 			<div class="col-md-12" id="email-settings">
 				<h4>
@@ -71,7 +71,7 @@
 				<div class="line line-dashed m-t-large"></div>
 			</div>
 		</div>
-		<div class="row">
+		<!-- <div class="row">
 			<div class="col-md-12" id="sms-settings">
 				<h4>
 					<strong><i class="fa fa-envelope"></i> SMS Settings</strong>
@@ -91,7 +91,7 @@
 				</div>
 				<div class="line line-dashed m-t-large"></div>
 			</div>
-		</div>
+		</div> -->
 		<div class="row">
 			<div class="col-md-12" id="home-settings">
 				<h4>
@@ -103,7 +103,7 @@
 							<label class="col-md-2 control-label">Home Page</label>
 							<div class="col-md-2">
 								<select name="home_page" id="home_page" class="form-control" data-mandatory="yes">
-									<option value="dashboard">Dashboard</option>
+									<option value="reports">Reports</option>
 									<option value="modules">Modules</option>
 								</select>
 							</div>

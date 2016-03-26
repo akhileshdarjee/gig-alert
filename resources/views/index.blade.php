@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Web App</title>
+		<title>Gig Alert</title>
 		@include('templates.headers')
 	</head>
 	<body class="navbar-fixed bg-white" data-url="/app">

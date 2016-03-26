@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Gig\Http\Controllers;
 
 use DB;
 use Session;
 use App;
+use Auth;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use Gig\Http\Requests;
+use Gig\Http\Controllers\Controller;
 
 class SettingsController extends Controller
 {
-	public static $controllers_path = "App\\Http\\Controllers";
+	public static $controllers_path = "Gig\\Http\\Controllers";
 
 	// Show app settings page
 	public function show() {
@@ -71,10 +72,21 @@ class SettingsController extends Controller
 	// get app setting value
 	public static function get_app_setting($name = null) {
 		if ($name) {
-			return Session::get('app_settings')[$name];
+			if (Auth::check()) {
+				return Session::get('app_settings')[$name];
+			}
+			else {
+				$value = DB::table('tabSettings')->where('field_name', $name)->pluck('field_value');
+				return (is_array($value)) ? $value[0] : $value;
+			}
 		}
 		else {
-			return Session::get('app_settings');
+			if (Auth::check()) {
+				return Session::get('app_settings');
+			}
+			else {
+				return DB::table('tabSettings')->get();
+			}
 		}
 	}
 }

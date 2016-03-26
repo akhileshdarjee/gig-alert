@@ -29,7 +29,7 @@
 			</ul>
 		</li>
 	</ul>
-	<a class="navbar-brand" href="/app" style="font-size: 22px;">Web App</a>
+	<a class="navbar-brand" href="/app" style="font-size: 22px;">Gig Alert</a>
 	<button type="button" class="btn btn-link pull-left nav-toggle visible-xs" data-toggle="class:slide-nav slide-nav-left" data-target="body">
 		<i class="fa fa-bars fa-lg text-default"></i>
 	</button>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Gig\Http\Controllers;
 
 use DB;
 use App;
@@ -8,12 +8,12 @@ use Session;
 use Exception;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use Gig\Http\Requests;
+use Gig\Http\Controllers\Controller;
 
 class ListViewController extends Controller
 {
-	public static $controllers_path = "App\\Http\\Controllers";
+	public static $controllers_path = "Gig\\Http\\Controllers";
 
 	/**
 	 * Display the specified resource in list view.

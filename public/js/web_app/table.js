@@ -121,7 +121,7 @@ function add_row(table, idx, action) {
 					<input type="text" class="form-control input-sm autocomplete" \
 					name="' + table_name + '[' + (idx - 1) + '][' + field_name + ']" \
 					autocomplete="off" data-target-module="' + target_module + '" data-target-field="' + target_field + '"' + readonly + '>\
-					</td>';
+				</td>';
 			}
 			else if (field_type == "select") {
 				rows += '<td data-field-type="select">\
@@ -137,7 +137,13 @@ function add_row(table, idx, action) {
 				rows += '<td data-field-type="' + field_type + '"' + hidden + '>\
 					<input type="text" name="' + table_name + '[' + (idx - 1) + '][' + field_name + ']" \
 					class="form-control input-sm" data-target-module="' + target_module + '" data-target-field="' + target_field + '" autocomplete="off"' + readonly + '>\
-					</td>';
+				</td>';
+			}
+			else if (field_type == "textarea") {
+				rows += '<td data-field-type="textarea">\
+					<textarea rows="5" cols="8" name="' + table_name + '[' + (idx - 1) + '][' + field_name + ']" \
+					class="form-control input-sm" autocomplete="off"></textarea>\
+				</td>';
 			}
 		}
 	});
@@ -179,5 +185,5 @@ function set_row_after_input(tbody) {
 
 function show_total_badge(target) {
 	var total_rows = $("." + target).find("table#" + target).find("tbody > tr:visible").length;
-	$("." + target).find("#total_badge").html(total_rows);
+	$("." + target).find(".total_badge").html(total_rows);
 }

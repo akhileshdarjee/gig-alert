@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Gig\Http\Controllers\Auth;
 
 use DB;
 use Auth;
 use Session;
-use App\User;
+use Gig\User;
 use Validator;
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\AppController;
+use Gig\Http\Controllers\Controller;
+use Gig\Http\Controllers\AppController;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 
