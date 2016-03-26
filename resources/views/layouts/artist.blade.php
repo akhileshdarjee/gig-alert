@@ -28,9 +28,9 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="form-group">
-						<label class="col-md-3 control-label">Avatar</label>
+						<label class="col-md-3 control-label">Avatar Link</label>
 						<div class="col-md-7">
-							<input type="text" name="avatar" id="avatar" class="form-control" data-mandatory="no" autocomplete="off">
+							<input type="text" name="avatar_link" id="avatar_link" class="form-control" data-mandatory="no" autocomplete="off">
 						</div>
 					</div>
 				</div>

@@ -72,6 +72,9 @@ class FormController extends Controller
 			}
 
 			if (isset($form_config['parent_foreign_map'])) {
+				$data_query = DB::table($form_config['table_name']);
+				$fetch_field = '';
+
 				foreach ($form_config['parent_foreign_map'] as $foreign_table => $foreign_details) {
 					$foreign_key = $foreign_details['foreign_key'];
 					$foreign_field = $foreign_details['fetch_field'];
@@ -83,13 +86,13 @@ class FormController extends Controller
 						$fetch_field .= $foreign_field;
 					}
 
-					$data[$form_config['table_name']] = $data[$form_config['table_name']]
-						->leftJoin($foreign_table, $data[$form_config['table_name']].'.'.$foreign_key, '=', $foreign_table.'.id');
+					$data_query = $data_query
+						->leftJoin($foreign_table, $form_config['table_name'].'.'.$foreign_key, '=', $foreign_table.'.id');
 				}
 
-				$data[$form_config['table_name']] = $data[$form_config['table_name']]
+				$data[$form_config['table_name']] = $data_query
 					->select(DB::raw($form_config['table_name'] . '.*, ' . $fetch_field))
-					->where($form_config['child_foreign_key'], $form_config['link_field_value'])
+					->where($form_config['table_name'].'.'.$form_config['link_field'], $form_config['link_field_value'])
 					->first();
 			}
 			else {
@@ -257,7 +260,7 @@ class FormController extends Controller
 		}
 
 		// if data is inserted into database then only save avatar, user, etc.
-		if (is_int($result) && $result) {
+		if ((is_int($result) || is_bool($result)) && $result) {
 			self::put_to_session('success', "true");
 			$form_config['link_field_value'] = self::$link_field_value;
 
@@ -586,7 +589,7 @@ class FormController extends Controller
 				$value = date('Y-m-d H:i:s', strtotime($value));
 			}
 			// checking is array is important to eliminate convert type for child tables
-			elseif (!is_array($value)) {
+			elseif (!is_array($value) && isset($table_schema[$column])) {
 				self::convert_type($value, $table_schema[$column]);
 			}
 
@@ -665,6 +668,9 @@ class FormController extends Controller
 				}
 			}
 			else {
+				// get the table schema
+				$table_schema = self::get_table_schema($table);
+
 				foreach (array_values($table_data) as $index => $child_record) {
 					if (isset($data[$table][$index]['id']) && $data[$table][$index]['id']) {
 						$data[$table][$index]['id'] = (int) $data[$table][$index]['id'];
@@ -676,6 +682,17 @@ class FormController extends Controller
 					if (isset($form_config['copy_parent_fields']) && isset($data[$parent_table])) {
 						foreach ($form_config['copy_parent_fields'] as $parent_field => $child_field) {
 							$data[$table][$index][$child_field] = $data[$parent_table][$parent_field];
+						}
+					}
+
+					// remove invalid columns from child table data
+					$child_columns = array_keys($table_schema);
+					// provide ignored fields
+					array_push($child_columns, 'action');
+
+					foreach ($child_record as $column_name => $column_value) {
+						if (!in_array($column_name, $child_columns)) {
+							unset($data[$table][$index][$column_name]);
 						}
 					}
 

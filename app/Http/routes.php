@@ -24,13 +24,15 @@
 Route::group(['middleware' => ['web']], function () {
 	// Website routes...
 	Route::get('/', ['as' => 'show.website', 'uses' => 'WebsiteController@showIndex']);
+	Route::get('/user_login', 'WebsiteController@showLogin');
+	Route::post('/user_login', 'Auth\AuthController@postWebLogin');
 	Route::get('/artist/{slug}', ['as' => 'show.artist.details', 'uses' => 'WebsiteController@showArtistDetails']);
 	Route::get('/gigs', ['as' => 'show.gigs', 'uses' => 'WebsiteController@showGigs']);
 
 	// API calls
 
 	// Customer routes...
-	Route::group(['middleware' => 'Subscription\Http\Middleware\CustomerMiddleware'], function () {
+	Route::group(['middleware' => 'Gig\Http\Middleware\CustomerMiddleware'], function () {
 		Route::get('/followings', 'WebsiteController@showFollowings');
 		Route::post('/follow/{category}/{id}', 'WebsiteController@follow');
 		Route::post('/unfollow/{category}/{id}', 'WebsiteController@unfollow');
@@ -41,6 +43,13 @@ Route::group(['middleware' => ['web']], function () {
 	Route::post('/login', ['as' => 'post.login', 'uses' => 'Auth\AuthController@postLogin']);
 	Route::get('/logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
 
+	// Register routes...
+	Route::get('/register', 'Auth\AuthController@getRegister');
+	Route::post('/register', 'Auth\AuthController@postRegister');
+
+	// Verifying routes...
+	Route::get('/verify_email/{token}', 'WebsiteController@verify_email');
+
 	// Password Reset routes...
 	Route::get('password/email', ['as' => 'forgot.password', 'uses' => 'Auth\PasswordController@getEmail']);
 	Route::post('password/email', ['as' => 'forgot.password', 'uses' => 'Auth\PasswordController@postEmail']);
@@ -48,7 +57,6 @@ Route::group(['middleware' => ['web']], function () {
 	Route::post('password/reset', ['as' => 'reset.password', 'uses' => 'Auth\PasswordController@postReset']);
 
 	// Request that can be made without authorization
-
 
 	Route::group(['middleware' => 'auth'], function () {
 

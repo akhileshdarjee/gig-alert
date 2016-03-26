@@ -20,7 +20,7 @@ return [
 	'tabArtist' => [
 		'link_field' => 'id',
 		'search_via' => 'name',
-		'cols' => ['name', 'genre', 'status']
+		'cols' => ['name', 'slug', 'status']
 	],
 
 	'tabVenue' => [
@@ -44,7 +44,7 @@ return [
 	'tabGig' => [
 		'link_field' => 'id',
 		'search_via' => 'name',
-		'cols' => ['name', 'from_date', 'to_date', 'price', 'status']
+		'cols' => ['name', 'starts_at', 'ends_at', 'price', 'status']
 	],
 
 ];

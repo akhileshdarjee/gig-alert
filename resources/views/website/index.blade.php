@@ -9,38 +9,40 @@
     </head>
     <body class="bg-home">
 
-        <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+        <div id="large-header" class="large-header">
+            <canvas id="demo-canvas" width="1440" height="325"></canvas>
+        </div>
 
         <div class="container-fluid text-center">
           <div class="container">
-              <h1 class="logo"><a href="#">Gig alert</a></h1>
-              <div class="text-desc">
-                Never miss a Gig 
+             <div class="bg1">
+                  <h1 class="logo">Gig alert</h1>
+                  <div class="text-desc">
+                    Never miss a Gig 
+                  </div>
+                  <h5>
+                    of your favourite
+                    <div class="slidingVertical">
+                      <span>Genre</span>
+                      <span>Artist</span>
+                      <span>Venue</span>
+                    </div>
+                  </h5>
+                  <p>
+                    <a href="/user_login" class="btn btn-primary btn-lg">Login</a>
+                    <a href="/register" class="btn btn-success btn-lg">Signup</a>
+                  </p>
               </div>
-              <h5>
-                of your favourite
-                <div class="slidingVertical">
-                  <span>Genre</span>
-                  <span>Artist</span>
-                  <span>Venue</span>
-                </div>
-              </h5>
-              <p>
-                <a href="#" class="btn btn-primary btn-lg">Login</a>
-                <a href="#" class="btn btn-success btn-lg">Signup</a>
-              </p>
           </div>
         </div>
-
-        <footer class="bs-docs-footer" role="contentinfo"> 
+        <footer class="navbar-fixed-bottom footer" role="contentinfo"> 
           <div class="container">
             <p class="text-center">
-              Built at <a href="http://mumbaihackathon.in">Mumbai Hackathon</a>
+              Built at <a href="http://mumbaihackathon.in" target="_blank">Mumbai Hackathon</a>
             </a>
             </p> 
           </div> 
         </footer>
+        <script src="/js/website/demo-4.js"></script>
     </body>
 </html>

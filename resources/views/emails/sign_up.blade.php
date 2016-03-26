@@ -16,7 +16,7 @@
 								<td style="padding: 20px;">
 									<table cellpadding="0" cellspacing="0" style="width: 100%;">
 										<tr>
-											<td style="background-color: #1ab394; color: #ffffff; text-align: center; padding: 40px; font-size: 40px; font-weight: bold;">
+											<td style="background-color: #6f5499; color: #ffffff; text-align: center; padding: 40px; font-size: 40px; font-weight: bold;">
 												Gig Alert
 											</td>
 										</tr>
@@ -27,21 +27,22 @@
 										</tr>
 										<tr>
 											<td style="padding: 0 0 20px; color: #5b5b5b; font-size: 14px;">
-												Hi {{ $data['full_name'] }},<br /><br />
-												You've been successfully registered as {{ $data['role'] }}<br /><br />
-												Here are your login credentials: <br /><br />
-												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												Login ID : {{ $data['login_id'] }}<br />
-												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												Password : {{ $data['generated_password'] }}<br /><br />
-												<div style="text-align: center;"><a href="{{ url('/login') }}" style="text-decoration: none; color: #FFF; background-color: #1ab394; border: solid #1ab394; border-width: 5px 10px; line-height: 2; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; text-transform: capitalize;">Login</a></div><br />
-												See you soon.
+												Hi,<br /><br />
+												You've been successfully registered on Gig Alert.<br />
+												Please click on the link below to verify your email address<br /><br />
+												<div style="text-align: center;">
+													<a href="{{ url('verify_email/'.$token) }}" style="text-decoration: none; color: #FFF; background-color: #6f5499; border: solid #6f5499; border-width: 5px 10px; line-height: 2; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; text-transform: capitalize;">
+														VERIFY EMAIL
+													</a>
+												</div><br />
+												You can also directly paste the below link into your browser:<br />
+												{{ url('verify_email/'.$token) }}<br />
+												See you soon.<br />
+												Gig Alert Crew<br />
 											</td>
 										</tr>
 										<tr>
-											<td style="padding: 0 0 20px; text-align: center;">
-												
-											</td>
+											<td style="padding: 0 0 20px; text-align: center;"></td>
 										</tr>
 									</table>
 								</td>

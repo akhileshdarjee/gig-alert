@@ -2,7 +2,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="description" content="Gig Alert">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/img/tile.png">
+<link rel="icon" type="image/png" href="/img/favicon.ico">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <link type="text/css" rel="stylesheet" href="{{ elixir('css/website/all.css') }}">

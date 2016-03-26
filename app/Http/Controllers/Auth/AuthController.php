@@ -5,6 +5,8 @@ namespace Gig\Http\Controllers\Auth;
 use DB;
 use Auth;
 use Session;
+use Crypt;
+use Mail;
 use Gig\User;
 use Validator;
 use Gig\Http\Controllers\Controller;
@@ -27,6 +29,21 @@ class AuthController extends Controller
 		else {
 			$this->put_app_settings_in_session();
 			return view('login');
+		}
+	}
+
+	/**
+	 * Show the application register form.
+	 *
+	 * @return Response
+	 */
+	public function getRegister()
+	{
+		if (Auth::check()) {
+			return redirect('/');
+		}
+		else {
+			return view('website.layouts.register');
 		}
 	}
 
@@ -84,10 +101,16 @@ class AuthController extends Controller
 
 			$this->put_user_data_in_session($user);
 
-			return "true";
+			return back()->withInput()->with([
+				'msg' => 'Logged In',
+				'success' => 'true'
+			]);
 		}
 		else {
-			return "false";
+			return back()->withInput()->with([
+				'msg' => 'Email ID/Password is incorrect',
+				'success' => 'false'
+			]);
 		}
 	}
 
@@ -101,20 +124,54 @@ class AuthController extends Controller
 	public function postRegister(Request $request) {
 		Session::put('role', 'Website User');
 
-		$cust = new CustomerController();
-		$customer = $cust->saveForm($request);
+		$user = User::where('login_id', $request->login_id)->first();
 
-		Session::forget('role');
+		if (!$user) {
+			$user_details = array(
+				'full_name' => $request->login_id,
+				'login_id' => $request->login_id,
+				'email' => $request->login_id,
+				'role' => 'Customer',
+				'status' => 'Inactive',
+				'password' => bcrypt($request->password),
+				'owner' => 'Website User',
+				'last_updated_by' => 'Website User',
+				'created_at' => date('Y-m-d H:i:s'),
+				'updated_at' => date('Y-m-d H:i:s')
+			);
 
-		if ($customer && Session::get('success') == "true") {
-			return redirect()->route('show.login')->with([
-				'msg' => 'Your Account has been successfully created. Please Login.',
-				'success' => 'true'
-			]);
+			$result = DB::table('tabUser')->insert($user_details);
+
+			if ($result) {
+				$mail_config = (object) array(
+					'from' => "crew@gigalert.in",
+					'to' => $request->get('login_id'),
+					'subject' => 'Gig Alert account verification'
+				);
+
+				$token = Crypt::encrypt($request->login_id);
+
+				Mail::send('emails.sign_up', array('token' => $token), function ($message) use ($mail_config) {
+					$message->from($mail_config->from, "Gig Alert");
+					$message->to($mail_config->to);
+					$message->subject($mail_config->subject);
+				});
+
+				return back()->withInput()->with([
+					'msg' => 'Successfully registered',
+					'success' => 'true'
+				]);
+			}
+			else {
+				return back()->withInput()->with([
+					'msg' => 'Some error occured. Please try again.',
+					'success' => 'false'
+				]);
+			}
 		}
 		else {
 			return back()->withInput()->with([
-				'msg' => 'Some problem occurred, please try again...!!!',
+				'msg' => 'Email ID is already registered',
 				'success' => 'false'
 			]);
 		}

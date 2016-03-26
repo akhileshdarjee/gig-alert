@@ -12,7 +12,7 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.sass('app.scss');
+	mix.sass('app.scss');
 });
 
 /* Backend Web App */
@@ -49,7 +49,7 @@ elixir(function(mix) {
 	mix.styles([
 		'../../../public/css/website/bootstrap.min.css',
 		'../../../public/css/font-awesome.min.css',
-		'../../../public/css/website/main.css',
+		'../../../public/css/website/main.css'
 	], 'public/css/website/all.css');
 });
 
@@ -57,6 +57,9 @@ elixir(function(mix) {
 	mix.scripts([
 		'../../../public/js/website/vendor/bootstrap.min.js',
 		'../../../public/js/website/main.js',
+		'../../../public/js/website/EasePack.min.js',
+		'../../../public/js/website/rAF.js',
+		'../../../public/js/website/website.js'
 	], 'public/js/website/all.js');
 });
 

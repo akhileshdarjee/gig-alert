@@ -4,7 +4,7 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
     <head>
-        <title>Login - Gig Alert</title>
+        <title>Register - Gig Alert</title>
         @include('website.templates.headers')
     </head>
     <body class="bg-gray">
@@ -17,7 +17,7 @@
 
           <header class="navbar navbar-static-top bs-docs-nav bg-orange" id="top" role="banner"> 
             <div class="container"> 
-                <div class="navbar-header"> 
+                <div class="navbar-header">
                   <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false"> 
                     <span class="sr-only">Toggle navigation</span> 
                     <span class="icon-bar"></span> 
@@ -54,9 +54,8 @@
             <div class="row">
                 <div class="col-md-4 col-md-offset-4 col-xs-12 mar-t-40">
                   <div class="bg-white padd-15">
-                      <form name="login" id="login" method="POST" action="/user_login" class="form-signin">
-                        {!! csrf_field() !!}
-                        <h2 class="form-signin-heading mar-0 mar-b-15">Please sign in</h2>
+                      <form name="register" id="register" method="POST" action="/register" class="form-signin">
+                        <h2 class="form-signin-heading mar-0 mar-b-15">Please register</h2>
                         @if (Session::has('success') && Session::get('success') == "true")
                             <div class="block">
                                 <div class="alert alert-success alert-dismissable">
@@ -76,11 +75,12 @@
                                 </div>
                             </div>
                         @endif
+                        {!! csrf_field() !!}
                         <label for="login_id" class="sr-only">Email address</label>
                         <input type="text" name="login_id" id="login_id" class="form-control mar-b-15" placeholder="Email address" required="" autofocus="">
                         <label for="password" class="sr-only">Password</label>
                         <input type="password" name="password" id="password" class="form-control mar-b-15" placeholder="Password" required="">
-                        <button class="btn btn-lg btn-primary btn-block btn-green" type="submit">Sign in</button>
+                        <button class="btn btn-lg btn-primary btn-block btn-green" type="submit">Register</button>
                       </form>
                   </div>
                 </div>

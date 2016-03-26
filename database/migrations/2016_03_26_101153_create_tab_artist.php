@@ -14,10 +14,9 @@ class CreateTabArtist extends Migration
 	{
 		Schema::create('tabArtist', function (Blueprint $table) {
 			$table->increments('id');
-			$table->text('avatar')->nullable();
+			$table->text('avatar_link')->nullable();
 			$table->string('name');
 			$table->string('status')->default('Active');
-			$table->string('genre')->nullable();
 			$table->string('youtube_link')->nullable();
 			$table->string('soundcloud_link')->nullable();
 			$table->string('bandcamp_link')->nullable();
