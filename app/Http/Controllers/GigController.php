@@ -123,6 +123,10 @@ class GigController extends Controller
 				$message->to($mail_config->to);
 				$message->subject($mail_config->subject);
 			});
+
+			if (Mail:: failures()) {
+				return redirect('/list/gig');
+			}
 		}
 	}
 }

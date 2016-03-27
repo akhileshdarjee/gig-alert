@@ -28,7 +28,7 @@
                     <!-- Tab panes -->
                     <div class="tab-content">
                       <div role="tabpanel" class="tab-pane active bg-white" id="artists">
-                                <form class="row padd-t-20 padd-15 mar-0">
+                                <!-- <form class="row padd-t-20 padd-15 mar-0">
                                   <div class="col-md-10 col-xs-9 padd-l-0">
                                     <input type="text" class="form-control input-lg" id="search" placeholder="Search Artists">
                                   </div>
@@ -36,7 +36,7 @@
                                     <button type="submit" class="btn btn-primary btn-lg btn-block btn-blue">Search</button>
                                   </div>
                                   </form>
-                                  <hr class="mar-0" />
+                                  <hr class="mar-0" /> -->
                                 <!-- List   -->
                                 @foreach($artists as $artist)
                                   <div class="list">
@@ -60,14 +60,18 @@
                                     </div>
                                     @if (Auth::check())
                                       <div class="col-md-2 col-xs-3 pull-right padd-0 mar-t-3per">
-                                        <button data-href="/follow/artist/{{ $artist->id }}" class="btn btn-lg btn-success btn-block btn-green follow" data-loading-text="Processing...">Follow</a>
+                                        @if (in_array($artist->id, $following_artists))
+                                          <button data-href="/unfollow/artist/{{ $artist->id }}" class="btn btn-lg btn-success btn-block btn-green follow">Unfollow</button>
+                                        @else
+                                          <button data-href="/follow/artist/{{ $artist->id }}" class="btn btn-lg btn-success btn-block btn-green follow">Follow</button>
+                                        @endif
                                       </div>
                                     @endif
                                   </div>
                                 @endforeach
                       </div>
                       <div role="tabpanel" class="tab-pane bg-white" id="venues">
-                          <form class="row padd-t-20 padd-15 mar-0">
+                          <<!-- form class="row padd-t-20 padd-15 mar-0">
                                   <div class="col-md-10 col-xs-9 padd-l-0">
                                     <input type="text" class="form-control input-lg" id="search" placeholder="Search Venues">
                                   </div>
@@ -75,7 +79,7 @@
                                     <button type="submit" class="btn btn-primary btn-lg btn-block btn-blue">Search</button>
                                   </div>
                                   </form>
-                                  <hr class="mar-0" />
+                                  <hr class="mar-0" /> -->
                                 <!-- List   -->
                                 @foreach($venues as $venue)
                                   <div class="list">
@@ -92,7 +96,11 @@
                                     </div>
                                     @if (Auth::check())
                                       <div class="col-md-2 col-xs-3 pull-right padd-0 mar-t-3per">
-                                        <button data-href="/follow/venue/{{ $venue->id }}" class="btn btn-lg btn-success btn-block btn-green follow" data-loading-text="Processing...">Follow</a>
+                                        @if (in_array($venue->id, $following_venues))
+                                          <button data-href="/unfollow/venue/{{ $venue->id }}" class="btn btn-lg btn-success btn-block btn-green follow">Unfollow</button>
+                                        @else
+                                          <button data-href="/follow/venue/{{ $venue->id }}" class="btn btn-lg btn-success btn-block btn-green follow">Follow</button>
+                                        @endif
                                       </div>
                                     @endif
                                   </div>
@@ -103,7 +111,7 @@
                       </div>
                       <div role="tabpanel" class="tab-pane bg-white" id="genres">
                           
-                          <form class="row padd-t-20 padd-15 mar-0">
+                          <!-- <form class="row padd-t-20 padd-15 mar-0">
                                   <div class="col-md-10 col-xs-9 padd-l-0">
                                     <input type="text" class="form-control input-lg" id="search" placeholder="Search Genres">
                                   </div>
@@ -111,7 +119,7 @@
                                     <button type="submit" class="btn btn-primary btn-lg btn-block btn-blue">Search</button>
                                   </div>
                                   </form>
-                                  <hr class="mar-0" />
+                                  <hr class="mar-0" /> -->
                                 <!-- List   -->
                                 @foreach($genres as $genre)
                                   <div class="list">
@@ -128,7 +136,11 @@
                                     </div>
                                     @if (Auth::check())
                                       <div class="col-md-2 col-xs-3 pull-right padd-0 mar-t-3per">
-                                        <button data-href="/follow/genre/{{ $genre->id }}" class="btn btn-lg btn-success btn-block btn-green follow" data-loading-text="Processing...">Follow</a>
+                                        @if (in_array($genre->id, $following_genres))
+                                          <button data-href="/unfollow/genre/{{ $genre->id }}" class="btn btn-lg btn-success btn-block btn-green follow">Unfollow</button>
+                                        @else
+                                          <button data-href="/follow/genre/{{ $genre->id }}" class="btn btn-lg btn-success btn-block btn-green follow">Follow</button>
+                                        @endif
                                       </div>
                                     @endif
                                   </div>

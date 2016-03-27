@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 col-xs-12 mar-t-40 col-sm-10 col-sm-offset-1">
                     <div class="bg-white">
-                        <form class="row padd-t-20 padd-15 mar-0">
+                        <!-- <form class="row padd-t-20 padd-15 mar-0">
                             <div class="col-md-10 col-xs-9 padd-l-0">
                               <input type="text" class="form-control input-lg" id="search" placeholder="Search gig">
                             </div>
@@ -31,7 +31,7 @@
                               <button type="submit" class="btn btn-primary btn-lg btn-block btn-blue">Search</button>
                             </div>
                         </form>
-                        <hr class="mar-0" />
+                        <hr class="mar-0" /> -->
                         <!-- List   -->
                         @if($gigs)
                           @foreach($gigs as $gig)

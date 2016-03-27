@@ -62,7 +62,27 @@ class WebsiteController extends Controller
 			->where('status', 'Active')
 			->get();
 
-		return view('website.layouts.discover')->with(compact('artists', 'artist_genres', 'genres', 'venues'));
+		$artist_ids = [];
+		$genre_ids = [];
+		$venue_ids = [];
+
+		foreach ($artists as $artist) {
+			array_push($artist_ids, $artist->id);
+		}
+
+		foreach ($venues as $venue) {
+			array_push($venue_ids, $venue->id);
+		}
+
+		foreach ($genres as $genre) {
+			array_push($genre_ids, $genre->id);
+		}
+
+		$following_artists = $this->get_following_ids('artist', $artist_ids);
+		$following_venues = $this->get_following_ids('venue', $venue_ids);
+		$following_genres = $this->get_following_ids('genre', $genre_ids);
+
+		return view('website.layouts.discover')->with(compact('artists', 'artist_genres', 'genres', 'venues', 'following_artists', 'following_genres', 'following_venues'));
 	}
 
 
@@ -224,7 +244,8 @@ class WebsiteController extends Controller
 				'status' => 'OK',
 				'status_code' => 200,
 				'message' => 'Followed successfully',
-				'link' => '/unfollow/' . $category . '/' . $id
+				'link' => '/unfollow/' . $category . '/' . $id,
+				'text' => 'Unfollow'
 			];
 			return response()->json($response_data, 200);
 		}
@@ -254,7 +275,8 @@ class WebsiteController extends Controller
 				'status' => 'OK',
 				'status_code' => 200,
 				'message' => 'Unfollowed successfully',
-				'link' => '/follow/' . $category . '/' . $id
+				'link' => '/follow/' . $category . '/' . $id,
+				'text' => 'Follow'
 			];
 			return response()->json($response_data, 200);
 		}
@@ -289,5 +311,24 @@ class WebsiteController extends Controller
 				'success' => 'false'
 			]);
 		}
+	}
+
+
+	// get following ids
+	public function get_following_ids($category, $category_ids) {
+		$following_ids = DB::table('tabFollowing')
+			->where('category', $category)
+			->whereIn('category_id', $category_ids)
+			->get();
+
+		$ids = [];
+
+		foreach ($following_ids as $follow) {
+			if (!in_array($follow->category_id, $ids)) {
+				array_push($ids, $follow->category_id);
+			}
+		}
+
+		return $ids;
 	}
 }

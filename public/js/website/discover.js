@@ -1,6 +1,5 @@
 $(document).ready(function() {
 	$(".follow").on("click", function() {
-		var $btn = $(this).button('loading');
 		var me = this;
 
 		$.ajax({
@@ -8,10 +7,8 @@ $(document).ready(function() {
 			url: $(me).data('href'),
 			dataType: 'json',
 			success: function(data) {
-				$btn.button('reset');
-
 				if (data['status'].toLowerCase() == 'ok') {
-					$(me).html("Unfollow");
+					$(me).html(data['text']);
 					$(me).attr("data-href", data['link']);
 					$(me).data("href", data['link']);
 				}
