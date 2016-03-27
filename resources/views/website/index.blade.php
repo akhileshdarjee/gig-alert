@@ -38,8 +38,8 @@
         <footer class="navbar-fixed-bottom footer" role="contentinfo"> 
           <div class="container">
             <p class="text-center">
-              Built at <a href="http://mumbaihackathon.in" target="_blank">Mumbai Hackathon</a>
-            </a>
+              Built at <a href="http://mumbaihackathon.in" target="_blank">Mumbai Hackathon</a> by 
+              <a href="http://achieveee.com" target="_blank">Achieveee</a>
             </p> 
           </div> 
         </footer>

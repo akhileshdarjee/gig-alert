@@ -62,7 +62,7 @@ class FormActions extends Controller
 		}
 		else {
 			// Returns response with view
-			return $this->make_action($save_response, 'form_view');
+			return $this->make_action($save_response, 'form_view', $request);
 		}
 	}
 
@@ -107,11 +107,12 @@ class FormActions extends Controller
 
 
 	// redirect to page based on api response
-	public function make_action($response, $view_type = null) {
+	public function make_action($response, $view_type = null, $request = null) {
 		$response = json_decode($response->getContent());
 		$module = snake_case($this->form_config['module']);
 		$data = json_decode(json_encode($response->data), true);
 		$form_data = isset($data['form_data']) ? $data['form_data'] : [];
+		$module_controller = App::make(self::$controllers_path . "\\" . $this->form_config['module'] . "Controller");
 
 		if (isset($response->status_code) && $response->status_code == 200) {
 			if ($view_type && $view_type == 'list_view') {
@@ -119,6 +120,10 @@ class FormActions extends Controller
 					->with(['msg' => $response->message]);
 			}
 			elseif ($view_type && $view_type == 'form_view') {
+				if (method_exists($module_controller, 'after_save') && is_callable(array($module_controller, 'after_save'))) {
+					call_user_func(array($module_controller, 'after_save'), $request);
+				}
+
 				$form_link_field_value = $form_data[$this->form_config['table_name']][$this->form_config['link_field']];
 
 				return redirect()->route('show.doc', array('module_name' => $module, 'id' => $form_link_field_value))

@@ -4,7 +4,7 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
     <head>
-        <title>Gig Map</title>
+        <title>Gigs - Gig Alert</title>
         @include('website.templates.headers')
     </head>
     <body class="bg-gray">
