@@ -266,7 +266,11 @@
                         <table cellpadding="0" cellspacing="0" width="100%">
                           <tr>
                             <td class="info-img">
-                              <a href="{{ $data['ticket_link'] }}"><img class="info-img" src="{{ url($data['avatar']) }}" alt="img" /></a>
+                              <a href="{{ $data['ticket_link'] }}">
+                                @if (isset($data['avatar']))
+                                  <img class="info-img" src="{{ url($data['avatar']) }}" alt="img" />
+                                @endif
+                              </a>
                             </td>
                           </tr>
                           <tr>

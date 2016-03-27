@@ -110,22 +110,22 @@ class GigController extends Controller
 				array_push($email_ids, $email_id);
 			}
 
-			$mail_config = (object) array(
-				'from' => "crew@gigalert.in",
-				'to' => $email_ids,
-				'subject' => 'Your Favorite Upcoming Gigs'
-			);
+			foreach ($email_ids as $email_id) {
+				$mail_config = (object) array(
+					'from' => "crew@gigalert.in",
+					'to' => $email_id,
+					'subject' => 'Your Favorite Upcoming Gigs'
+				);
 
-			// web_dump($form_data);
+				Mail::send('emails.upcoming_gigs', array('data' => $form_data), function ($message) use ($mail_config) {
+					$message->from($mail_config->from, "Gig Alert");
+					$message->to($mail_config->to);
+					$message->subject($mail_config->subject);
+				});
 
-			Mail::send('emails.upcoming_gigs', array('data' => $form_data), function ($message) use ($mail_config) {
-				$message->from($mail_config->from, "Gig Alert");
-				$message->to($mail_config->to);
-				$message->subject($mail_config->subject);
-			});
-
-			if (Mail:: failures()) {
-				return redirect('/list/gig');
+				if (Mail:: failures()) {
+					return redirect('/list/gig');
+				}
 			}
 		}
 	}
