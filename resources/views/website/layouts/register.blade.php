@@ -15,38 +15,7 @@
 
         <!--  Header Start  -->
 
-          <header class="navbar navbar-static-top bs-docs-nav bg-orange" id="top" role="banner"> 
-            <div class="container"> 
-                <div class="navbar-header">
-                  <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false"> 
-                    <span class="sr-only">Toggle navigation</span> 
-                    <span class="icon-bar"></span> 
-                    <span class="icon-bar"></span> 
-                    <span class="icon-bar"></span> 
-                  </button> 
-                  <a href="index.html" class="navbar-brand fnt-14 bold cl-white">Gig alert</a> 
-                </div> 
-                <nav id="bs-navbar" class="collapse navbar-collapse"> 
-                  <ul class="nav navbar-nav"> 
-                    <li class="active"> 
-                        <a href="index.html" class="fnt-14 bold cl-white">Menu1 <i class="fa fa-th-large"></i></a> 
-                    </li> 
-                    <li> 
-                        <a href="redeem.html" class="fnt-14 bold cl-white">Menu2 <i class="fa fa-users"></i></a> 
-                    </li> 
-                    <li> 
-                        <a href="promos-list.html" class="fnt-14 bold cl-white">Menu3<i class="fa fa-users"></i></a> 
-                    </li> 
-                    <li> 
-                        <a href="#" class="fnt-14 bold cl-white">Menu4 <i class="fa fa-cog"></i></a> 
-                    </li> 
-                    <li> 
-                        <a href="#" class="fnt-14 bold cl-white" aria-expanded="true">Menu5<i class="fa fa-users"></i></a> 
-                    </li> 
-                  </ul> 
-                </nav> 
-            </div> 
-          </header>
+          @include('website.templates.navbar')
 
         <!--  Header end  -->
 

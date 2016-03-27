@@ -36,7 +36,7 @@
 													</a>
 												</div><br />
 												You can also directly paste the below link into your browser:<br />
-												{{ url('verify_email/'.$token) }}<br />
+												{{ url('verify_email/'.$token) }}<br /><br />
 												See you soon.<br />
 												Gig Alert Crew<br />
 											</td>

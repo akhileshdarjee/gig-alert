@@ -101,10 +101,7 @@ class AuthController extends Controller
 
 			$this->put_user_data_in_session($user);
 
-			return back()->withInput()->with([
-				'msg' => 'Logged In',
-				'success' => 'true'
-			]);
+			return redirect()->route('show.gigs');
 		}
 		else {
 			return back()->withInput()->with([

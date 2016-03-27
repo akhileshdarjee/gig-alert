@@ -29,6 +29,43 @@ class WebsiteController extends Controller
 	}
 
 
+	// show website register page
+	public function showDiscover() {
+		$artists = DB::table('tabArtist')
+			->select('id', 'avatar_link', 'name', 'description', 'slug')
+			->where('status', 'Active')
+			->get();
+
+		$artist_genres = [];
+
+		if ($artists) {
+			foreach ($artists as $artist) {
+				$genres = DB::table('tabArtistGenreDetails')
+					->leftJoin('tabArtist', 'tabArtistGenreDetails.artist_id', '=', 'tabArtist.id')
+					->leftJoin('tabGenre', 'tabArtistGenreDetails.genre_id', '=', 'tabGenre.id')
+					->where('tabArtistGenreDetails.artist_id', $artist->id)
+					->pluck('tabGenre.name');
+
+				if ($genres) {
+					$artist_genres[$artist->id] = $genres;
+				}
+			}
+		}
+
+		$venues = DB::table('tabVenue')
+			->select('id', 'avatar', 'name', 'description')
+			->where('status', 'Active')
+			->get();
+
+		$genres = DB::table('tabGenre')
+			->select('id', 'avatar', 'name', 'description')
+			->where('status', 'Active')
+			->get();
+
+		return view('website.layouts.discover')->with(compact('artists', 'artist_genres', 'genres', 'venues'));
+	}
+
+
 	// show artist page
 	public function showArtistDetails($slug) {
 		$artist = DB::table('tabArtist')
@@ -75,22 +112,96 @@ class WebsiteController extends Controller
 	// show gigs page
 	public function showGigs() {
 		$gigs = DB::table('tabGig')
+			->select('id', 'name', 'description', 'avatar', 'ticket_link', 'price')
 			->where('status', 'Active')
 			->where('ends_at', '>=', date('Y-m-d H:i:s'))
 			->get();
 
-		return view('website.layouts.gigs')->with(compact('gigs'));
+		$gig_genres = [];
+
+		if ($gigs) {
+			foreach ($gigs as $gig) {
+				$genres = DB::table('tabGigGenreDetails')
+					->leftJoin('tabGenre', 'tabGigGenreDetails.genre_id', '=', 'tabGenre.id')
+					->where('tabGigGenreDetails.gig_id', $gig->id)
+					->pluck('tabGenre.name');
+
+				if ($genres) {
+					$gig_genres[$gig->id] = $genres;
+				}
+			}
+		}
+
+		return view('website.layouts.gigs')->with(compact('gigs', 'gig_genres'));
 	}
 
 
 	// show user following categories page
-	public function showFollowings() {
+	public function showFollowing() {
 		$followings = DB::table('tabFollowing')
-			->where('user_login_id', Session::get('user_login_id'))
-			->groupBy('category')
+			->select('category', 'category_id')
+			->where('user_login_id', Session::get('login_id'))
 			->get();
 
-		return view('website.layouts.followings')->with(compact('followings'));
+		$artists_id = [];
+		$genres_id = [];
+		$venues_id = [];
+
+		foreach ($followings as $follow) {
+			if ($follow->category == "artist") {
+				if (!in_array($follow->category_id, $artists_id)) {
+					array_push($artists_id, $follow->category_id);
+				}
+			}
+
+			if ($follow->category == "genre") {
+				if (!in_array($follow->category_id, $genres_id)) {
+					array_push($genres_id, $follow->category_id);
+				}
+			}
+
+			if ($follow->category == "venue") {
+				if (!in_array($follow->category_id, $venues_id)) {
+					array_push($venues_id, $follow->category_id);
+				}
+			}
+		}
+
+		$artists = DB::table('tabArtist')
+			->select('id', 'avatar_link', 'name', 'description', 'slug')
+			->whereIn('id', $artists_id)
+			->where('status', 'Active')
+			->get();
+
+		$artist_genres = [];
+
+		if ($artists) {
+			foreach ($artists as $artist) {
+				$genres = DB::table('tabArtistGenreDetails')
+					->leftJoin('tabArtist', 'tabArtistGenreDetails.artist_id', '=', 'tabArtist.id')
+					->leftJoin('tabGenre', 'tabArtistGenreDetails.genre_id', '=', 'tabGenre.id')
+					->whereIn('tabArtistGenreDetails.artist_id', $artists_id)
+					->pluck('tabGenre.name');
+
+				if ($genres) {
+					$artist_genres[$artist->id] = $genres;
+				}
+			}
+		}
+
+		$venues = DB::table('tabVenue')
+			->select('id', 'avatar', 'name', 'description')
+			->whereIn('id', $venues_id)
+			->where('status', 'Active')
+			->get();
+
+		$genres = DB::table('tabGenre')
+			->select('id', 'avatar', 'name', 'description')
+			->whereIn('id', $genres_id)
+			->where('status', 'Active')
+			->get();
+
+		return view('website.layouts.following')->with(compact('artists', 'artist_gigs', 'venues', 'genres'));
 	}
 
 

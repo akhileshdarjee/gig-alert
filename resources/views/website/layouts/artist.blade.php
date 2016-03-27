@@ -13,46 +13,11 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <!--  Header Start  -->
-
-          <header class="navbar navbar-static-top bs-docs-nav bg-orange" id="top" role="banner"> 
-            <div class="container"> 
-                <div class="navbar-header"> 
-                  <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false"> 
-                    <span class="sr-only">Toggle navigation</span> 
-                    <span class="icon-bar"></span> 
-                    <span class="icon-bar"></span> 
-                    <span class="icon-bar"></span> 
-                  </button> 
-                  <a href="index.html" class="navbar-brand fnt-14 bold cl-white">Gig alert</a> 
-                </div> 
-                <nav id="bs-navbar" class="collapse navbar-collapse"> 
-                  <ul class="nav navbar-nav"> 
-                    <li class="active"> 
-                        <a href="index.html" class="fnt-14 bold cl-white">Menu1 <i class="fa fa-th-large"></i></a> 
-                    </li> 
-                    <li> 
-                        <a href="redeem.html" class="fnt-14 bold cl-white">Menu2 <i class="fa fa-users"></i></a> 
-                    </li> 
-                    <li> 
-                        <a href="promos-list.html" class="fnt-14 bold cl-white">Menu3<i class="fa fa-users"></i></a> 
-                    </li> 
-                    <li> 
-                        <a href="#" class="fnt-14 bold cl-white">Menu4 <i class="fa fa-cog"></i></a> 
-                    </li> 
-                    <li> 
-                        <a href="#" class="fnt-14 bold cl-white" aria-expanded="true">Menu5<i class="fa fa-users"></i></a> 
-                    </li> 
-                  </ul> 
-                </nav> 
-            </div> 
-          </header>
-
-        <!--  Header end  -->
+        @include('website.templates.navbar')
 
         <div class="container">
             <div class="row">
-                <div class="col-md-8 col-md-offset-2 col-xs-12 mar-t-40">
+                <div class="col-md-8 col-md-offset-2 col-xs-12 mar-t-40 col-sm-10 col-sm-offset-1">
                     <div class="list-detail mar-b-15">
                         <div class="list">
                           <div class="col-xs-2 padd-0 artist-img">
@@ -98,6 +63,13 @@
                                   @foreach($gig_genres[$gig->id] as $genre)
                                     <span class="label label-warning">{{ $genre }}</span>
                                   @endforeach
+                                  @if ($gig->price)
+                                    <span class="label label-success">
+                                      <i class="fa fa-inr"></i> {{ $gig->price }}
+                                    </span>
+                                  @else
+                                    <span class="label label-success">FREE</span>
+                                  @endif
                                 </p>
                               @endif
                             </div>
