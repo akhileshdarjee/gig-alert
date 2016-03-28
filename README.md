@@ -2,7 +2,7 @@
 
 GigAlert is written on PHP with Laravel as framework and has MySQL database.
 Frontend is built up on using Bootstrap.
-On top of Laravel we've used our own Laravel CMS: [Laravel CRUD](https://github.com/akhileshdarjee/gig-alert)
+On top of Laravel we've used our own Laravel CMS: [Laravel CRUD](https://github.com/akhileshdarjee/laravel-crud)
 
 [http://gigalert.in](http://gigalert.in)
 
@@ -42,7 +42,7 @@ The data of the Artist, venue and genre is maintained through the backend.
 
 **Permissions**
 
-`sudo chown -R :www-data {app-directory-path}`
+`sudo chown -R :www-data {app-directory-path}`  
 `sudo chmod -R ug+rw {app-directory-path}/app/storage`
 
   
