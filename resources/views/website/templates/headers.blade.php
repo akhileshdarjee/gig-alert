@@ -2,6 +2,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="description" content="Gig Alert">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Chrome, Firefox OS and Opera -->
+<meta name="theme-color" content="#6f5499">
+<!-- Windows Phone -->
+<meta name="msapplication-navbutton-color" content="#6f5499">
+<!-- iOS Safari -->
+<meta name="apple-mobile-web-app-status-bar-style" content="#6f5499">
 <link rel="icon" type="image/png" href="/img/favicon.ico">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <meta name="csrf-token" content="{{ csrf_token() }}" />
