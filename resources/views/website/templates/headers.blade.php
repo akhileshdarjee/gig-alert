@@ -15,3 +15,4 @@
 <script type="text/javascript" src="/js/website/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="{{ elixir('js/website/all.js') }}"></script>
+@include('website.templates.analytics')
